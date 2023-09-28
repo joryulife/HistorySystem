@@ -1,0 +1,1 @@
+curl -X POST "http://localhost:3993/api/screenshot" -H "Content-Type: application/json" -d '{"height": "100", "id": "1", "url": "https://qiita.com/joryulife/items/b1b6111a78d4463807f1", "width": "100", "x": "10", "y": "10"}'

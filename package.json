@@ -1,25 +1,55 @@
 {
-  "name": "history-server",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@types/node": "18.15.12",
-    "@types/react": "18.0.37",
-    "@types/react-dom": "18.0.11",
-    "autoprefixer": "10.4.14",
-    "eslint": "8.38.0",
-    "eslint-config-next": "13.3.0",
-    "next": "13.3.0",
-    "postcss": "8.4.23",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "tailwindcss": "3.3.1",
-    "typescript": "5.0.4"
-  }
+    "name": "history-server",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint --ignore-path .gitignore",
+        "lint:fix": "next lint --ignore-path .gitignore --fix",
+        "lint:style": "stylelint --ignore-path .gitignore './**/*.{css,scss}'",
+        "lint:style:fix": "stylelint --ignore-path .gitignore --fix './**/*.{css,scss}'",
+        "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css,scss}'"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.10.6",
+        "@emotion/styled": "^11.10.6",
+        "@fontsource/roboto": "^4.5.8",
+        "@mui/icons-material": "^5.11.16",
+        "@mui/lab": "^5.0.0-alpha.127",
+        "@mui/material": "^5.12.1",
+        "@mui/styled-engine-sc": "^5.12.0",
+        "@types/material-ui": "^0.21.12",
+        "@types/node": "18.15.12",
+        "@types/react": "18.0.37",
+        "@types/react-dom": "18.0.11",
+        "@typescript-eslint/eslint-plugin": "^5.59.0",
+        "autoprefixer": "10.4.14",
+        "eslint": "8.38.0",
+        "eslint-config-next": "13.3.0",
+        "eslint-config-prettier": "^8.8.0",
+        "eslint-plugin-sort-keys-fix": "^1.1.2",
+        "eslint-plugin-typescript-sort-keys": "^2.3.0",
+        "eslint-plugin-unused-imports": "^2.0.0",
+        "next": "13.3.0",
+        "postcss": "8.4.23",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "styled-components": "^5.3.9",
+        "tailwindcss": "3.3.1",
+        "typescript": "5.0.4"
+    },
+    "devDependencies": {
+        "@tsconfig/next": "^1.0.5",
+        "classnames": "^2.3.2",
+        "prettier": "^2.8.7",
+        "ress": "^5.0.2",
+        "sass": "^1.62.0",
+        "stylelint": "^15.5.0",
+        "stylelint-config-recess-order": "^4.0.0",
+        "stylelint-config-recommended-scss": "^10.0.0",
+        "stylelint-config-standard": "^33.0.0",
+        "stylelint-scss": "^4.6.0"
+    }
 }
