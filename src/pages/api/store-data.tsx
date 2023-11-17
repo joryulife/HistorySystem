@@ -1,11 +1,33 @@
+// src/pages/api/store_data.tsx
+import Cors from 'cors';
+
 import db from '../../lib/ds';
 import { createImg } from '../../lib/puppeteer';
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+// CORSミドルウェアの初期化
+const cors = Cors({
+    methods: ['POST'], // POSTメソッドのみを許可
+    optionsSuccessStatus: 200, // レガシーブラウザ対応
+    origin: '*', // すべてのオリジンを許可
+});
 
+function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn: any) {
+    return new Promise((resolve, reject) => {
+        fn(req, res, (result: any) => {
+            if (result instanceof Error) {
+                return reject(result);
+            }
+            return resolve(result);
+        });
+    });
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    // CORSを有効にする
+    await runMiddleware(req, res, cors);
+
     if (req.method !== 'POST') {
         res.setHeader('Allow', ['POST']);
         return res.status(405).end(`Method ${req.method} Not Allowed`);
