@@ -57,6 +57,7 @@ export async function createImg(userId: number) {
 const rootDir = path.resolve(__dirname, '../..');
 
 async function ss(height: number, id: string, userId: number, url: string, width: number, x: number, y: number, UserId:number) {
+    console.log("rootDir",rootDir);
     if (!browser) {
         await initPuppeteer();
     }
@@ -67,6 +68,7 @@ async function ss(height: number, id: string, userId: number, url: string, width
     }
 
     try {
+        console.log("IN puppeteer.ts ");
         const page = await browser.newPage();
         await page.setViewport({  height,width });
         await page.goto(url, { waitUntil: 'networkidle2' });
