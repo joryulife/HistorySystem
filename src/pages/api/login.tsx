@@ -1,9 +1,28 @@
 import bcrypt from 'bcrypt';
+import Cors from 'cors';
 
 import db from '../../lib/ds';
 
 import type { RowDataPacket } from 'mysql2';
 import type { NextApiRequest, NextApiResponse } from 'next';
+
+// CORSミドルウェアの初期化
+const cors = Cors({
+    methods: ['POST'], // POSTメソッドのみを許可
+    optionsSuccessStatus: 200, // レガシーブラウザ対応
+    origin: '*', // すべてのオリジンを許可
+});
+
+function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn: any) {
+    return new Promise((resolve, reject) => {
+        fn(req, res, (result: any) => {
+            if (result instanceof Error) {
+                return reject(result);
+            }
+            return resolve(result);
+        });
+    });
+}
 
 interface LoginRequest {
     password: string;
@@ -11,8 +30,12 @@ interface LoginRequest {
 }
 
 export default async function login(req: NextApiRequest, res: NextApiResponse) {
+    // CORSを有効にする
+    await runMiddleware(req, res, cors);
+
     if (req.method !== 'POST') {
-        return res.status(405).json({ message: 'Method not allowed' });
+        res.setHeader('Allow', ['POST']);
+        return res.status(405).end(`Method ${req.method} Not Allowed`);
     }
 
     const { username, password } = req.body as LoginRequest;
