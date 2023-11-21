@@ -37,6 +37,7 @@ export async function initPuppeteer() {
 }
 
 export async function createImg(userId: number) {
+    console.log("40,userId:",userId);
     const sql = 'SELECT * FROM history WHERE userId = ? AND imgcreate = false';
 
     try {
