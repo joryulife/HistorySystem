@@ -54,6 +54,8 @@ export async function createImg(userId: number) {
     }
 }
 
+const rootDir = path.resolve(__dirname, '../..');
+
 async function ss(height: number, id: string, userId: number, url: string, width: number, x: number, y: number, UserId:number) {
     if (!browser) {
         await initPuppeteer();
@@ -73,7 +75,7 @@ async function ss(height: number, id: string, userId: number, url: string, width
         }, x, y);
     
         const imageName = `${userId}_${id}.png`;
-        const imagePath = path.join(__dirname, '../public/images', imageName);
+        const imagePath = path.join(rootDir,'public/images', imageName);
         console.log(imagePath);
     
         await page.screenshot({ fullPage: false,path: imagePath });
