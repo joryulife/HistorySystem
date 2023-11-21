@@ -44,10 +44,7 @@ export async function createImg(userId: number) {
 
         for (const row of rows as HistoryRow[]) {
             try {
-                await ss(row.height, row.nodeid, row.userId, row.url, row.width, row.x, row.y);
-                
-                const updateSql = 'UPDATE history SET imgcreate = true WHERE id = ?';
-                await db.query(updateSql, [row.id]);
+                await ss(row.height, row.nodeid, row.userId, row.url, row.width, row.x, row.y, row.userId);
             } catch (error) {
                 console.error(error);
             }
@@ -57,7 +54,7 @@ export async function createImg(userId: number) {
     }
 }
 
-async function ss(height: number, id: string, userId: number, url: string, width: number, x: number, y: number) {
+async function ss(height: number, id: string, userId: number, url: string, width: number, x: number, y: number, UserId:number) {
     if (!browser) {
         await initPuppeteer();
     }
@@ -80,6 +77,8 @@ async function ss(height: number, id: string, userId: number, url: string, width
     
         await page.screenshot({ fullPage: false,path: imagePath });
         await page.close();
+        const updateSql = 'UPDATE history SET imgcreate = true WHERE id = ?';
+        await db.query(updateSql, [UserId]);
 
         console.log(`Screenshot saved: ${imageName}`);
     } catch (error) {
