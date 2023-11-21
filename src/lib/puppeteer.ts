@@ -31,7 +31,7 @@ export async function initPuppeteer() {
     if (!browser) {
         browser = await puppeteer.launch({
             args: ['--lang=ja'],
-            headless: true,
+            headless: "new",
         });
     }
 }
