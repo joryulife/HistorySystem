@@ -76,7 +76,7 @@ async function ss(height: number, id: string, userId: number, url: string, width
     
         const imageName = `${userId}_${id}.png`;
         const imagePath = path.join(rootDir,'public/images', imageName);
-        console.log(imagePath);
+        console.log("image path",imagePath);
     
         await page.screenshot({ fullPage: false,path: imagePath });
         await page.close();
