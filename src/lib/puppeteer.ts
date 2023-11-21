@@ -37,7 +37,6 @@ export async function initPuppeteer() {
 }
 
 export async function createImg(userId: number) {
-    console.log("40,userId:",userId);
     const sql = 'SELECT * FROM history WHERE userId = ? AND imgcreate = false';
 
     try {
@@ -56,7 +55,7 @@ export async function createImg(userId: number) {
     }
 }
 
-const rootDir = path.resolve(__dirname, '../..');
+const rootDir = path.resolve(__dirname, '../../../..');
 
 async function ss(height: number, id: string, userId: number, url: string, width: number, x: number, y: number,ID:number) {
     console.log("rootDir",rootDir);
