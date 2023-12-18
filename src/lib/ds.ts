@@ -33,19 +33,19 @@ const createUserTable = `
         UNIQUE(userId, nodeId)
     )`;
 connection.query(createUserTable).then(([rows]) => {
-    console.log('Available Tables:', rows);
+    //console.log('Available Tables:', rows);
 }).catch(err => {
     console.error('Database connection error:', err);
 });
 
 connection.query(createHistoryTable).then(([rows]) => {
-    console.log('Available Tables:', rows);
+    //console.log('Available Tables:', rows);
 }).catch(err => {
     console.error('Database connection error:', err);
 });
 
 connection.query('SHOW TABLES').then(([rows]) => {
-    console.log('Available Tables:', rows);
+    //console.log('Available Tables:', rows);
 }).catch(err => {
     console.error('Database connection error:', err);
 });

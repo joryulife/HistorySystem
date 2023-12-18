@@ -44,7 +44,6 @@ export async function createImg(userId: number) {
 
         for (const row of rows as HistoryRow[]) {
             try {
-                console.log("row",row);
                 await ss(row.height, row.nodeid, row.userId, row.url, row.width, row.x, row.y, row.id);
             } catch (error) {
                 console.error(error);
@@ -85,9 +84,8 @@ async function ss(height: number, id: string, userId: number, url: string, width
         await page.close();
         const updateSql = 'UPDATE history SET imgcreate = true WHERE id = ?';
         await db.query(updateSql, [ID]);
-
         console.log(`Screenshot saved: ${imageName}`);
     } catch (error) {
-        console.error(error);
+        throw error;
     }
 }
