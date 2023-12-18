@@ -62,29 +62,32 @@ async function ss(height: number, id: string, userId: number, url: string, width
         await initPuppeteer();
     }
 
-    if (url.startsWith('chrome://')) {
-        console.error(`Invalid URL for Puppeteer: ${url}`);
-        return; // このURLはスキップ
-    }
-
+    
     try {
-        console.log("IN puppeteer.ts ");
-        const page = await browser.newPage();
-        await page.setViewport({  height,width });
-        await page.goto(url, { waitUntil: 'networkidle2' });
-        await page.evaluate((x, y) => {
-            window.scrollTo(x, y);
-        }, x, y);
-    
-        const imageName = `${userId}_${id}.png`;
-        const imagePath = path.join(rootDir,'public/images', imageName);
-        console.log("image path",imagePath);
-    
-        await page.screenshot({ fullPage: false,path: imagePath });
-        await page.close();
-        const updateSql = 'UPDATE history SET imgcreate = true WHERE id = ?';
-        await db.query(updateSql, [ID]);
-        console.log(`Screenshot saved: ${imageName}`);
+        console.log("IN puppeteer.ts :",url);
+        if (url.startsWith('chrome://')) {
+            console.error(`Invalid URL for Puppeteer: ${url}`);
+            const updateSql = 'UPDATE history SET imgcreate = true WHERE id = ?';
+            await db.query(updateSql, [ID]);
+        }else{
+            console.log("IN puppeteer.ts ");
+            const page = await browser.newPage();
+            await page.setViewport({  height,width });
+            await page.goto(url, { waitUntil: 'networkidle2' });
+            await page.evaluate((x, y) => {
+                window.scrollTo(x, y);
+            }, x, y);
+        
+            const imageName = `${userId}_${id}.png`;
+            const imagePath = path.join(rootDir,'public/images', imageName);
+            console.log("image path",imagePath);
+        
+            await page.screenshot({ fullPage: false,path: imagePath });
+            await page.close();
+            const updateSql = 'UPDATE history SET imgcreate = true WHERE id = ?';
+            await db.query(updateSql, [ID]);
+            console.log(`Screenshot saved: ${imageName}`);
+        }
     } catch (error) {
         throw error;
     }
