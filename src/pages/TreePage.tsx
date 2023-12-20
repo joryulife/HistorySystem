@@ -79,7 +79,7 @@ const TreePage: React.FC = () => {
                             defaultExpandIcon={<span>+</span>}
                             expanded={expandedNodes}
                         >
-                            {buildTree(data, '0', handleNodeClick, maxDate, minDate, windowWidth, 0, 0, 0)}
+                            {buildTree(data, '0', handleNodeClick, maxDate, minDate, windowWidth, 0)}
                         </TreeView>
                     )}
                 </Box>
