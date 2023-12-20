@@ -12,5 +12,6 @@ export type Nodes = { [id: string]: NodeData };
 
 export interface TreeItemProps {
     W: number;
+    hc:boolean;
     parent: string;
 }

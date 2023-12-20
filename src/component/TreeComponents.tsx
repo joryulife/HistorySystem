@@ -7,7 +7,7 @@ import { Box, Button } from '@mui/material';
 import type { NodeData, Nodes, TreeItemProps } from '../pages/api/types';
 const large = 150;
 const small = 75;
-export const TreeItemDynamic = styled(TreeItem)(({ W, parent }: TreeItemProps) => ({
+export const TreeItemDynamic = styled(TreeItem)(({ W, parent, hc }: TreeItemProps) => ({
     '& .Mui-expanded': {
         position: 'relative',
     },
@@ -25,7 +25,7 @@ export const TreeItemDynamic = styled(TreeItem)(({ W, parent }: TreeItemProps) =
         position: 'relative',
     },
     '& .MuiTreeItem-root::before': {
-        backgroundColor: 'red',
+        backgroundColor: `${hc ? 'red' : ''}`,
         content: '""',
         height: `100%`,
         left: `20px`,
@@ -35,6 +35,10 @@ export const TreeItemDynamic = styled(TreeItem)(({ W, parent }: TreeItemProps) =
         width: '2px',
     },
 }));
+
+function hasChildren(nodes: Nodes, parentId: string): boolean {
+    return Object.values(nodes).some(node => node.parent === parentId);
+}
 
 export function CustomNode({ node }: { node: NodeData }) {
     const aspectRatio = node.width && node.height ? node.width / node.height : 1;
@@ -161,12 +165,13 @@ export function TreeItemComponent({
             setChildren(newChildren);
         }
     }, [handleNodeClick, id, maxDate, minDate, node.date, nodes, parentpadding, windowWidth, position]);
-
+    const hasChildNodes = hasChildren(nodes, id);
     return (
         <TreeItemDynamic
             W={(((node.date - minDate) / (maxDate - minDate) / 1.5) * windowWidth - parentpadding) > 20 
             ? (((node.date - minDate) / (maxDate - minDate) / 1.5) * windowWidth - parentpadding) 
             : 20} // nullの場合は0を設定
+            hc = {hasChildNodes}
             key={id}
             nodeId={id}
             onClick={() => handleNodeClick(id)}
