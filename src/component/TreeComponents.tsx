@@ -151,8 +151,10 @@ export function TreeItemComponent({
     parentpadding: number;
     windowWidth: number;
 }) {
+    //const pad = (((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) < 20 ? 20 :(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding);
+    const [verticalLine, setVerticalLine] = useState<LineState>({ length: 500,x: 0, y: 0 });
     const [horizontalLine, setHorizontalLine] = useState<LineState>({ length: 100 ,x: 0, y: 0});
-    const [verticalLine, setVerticalLine] = useState<LineState>({ length: 150,x: 0, y: 0 });
+    
     const [children, setChildren] = useState<JSX.Element[]>([]);
     
     useEffect(() => {
@@ -169,7 +171,6 @@ export function TreeItemComponent({
     }, [handleNodeClick, id, maxDate, minDate, node.date, nodes, parentpadding, windowWidth]);
 
     //const hasChildNodes = hasChildren(nodes, id);
-    //const pad = (((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) < 20 ? 20 :(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding);
     return (
         /*<TreeItemDynamic
             W={(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) > 40 
@@ -197,18 +198,18 @@ export function TreeItemComponent({
             }}*/
         >
             <Box alignItems="center" display="flex" flexDirection="row">
-            <Line
-                length={horizontalLine.length}
-                orientation="horizontal"
-                x={horizontalLine.x}
-                y={horizontalLine.y}
-            />
-            <Line
-                length={verticalLine.length}
-                orientation="vertical"
-                x={verticalLine.x}
-                y={verticalLine.y}
-            />
+                <Line
+                    length={verticalLine.length}
+                    orientation="vertical"
+                    x={verticalLine.x}
+                    y={verticalLine.y}
+                />
+                <Line
+                    length={horizontalLine.length}
+                    orientation="horizontal"
+                    x={horizontalLine.x}
+                    y={horizontalLine.y}
+                />
                 <CustomNode node={node} />
             </Box>
             {children}
