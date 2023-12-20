@@ -37,6 +37,25 @@ export const TreeItemDynamic = styled(TreeItem)(({ W, parent, hc }: TreeItemProp
     },
 }));
 
+const Line = styled.div`
+    position: absolute;
+    background-color: black;
+`;
+
+interface LineProps {
+    left: string;
+    length: string;
+    top: string;
+}
+
+const VerticalLine: React.FC<LineProps> = ({ top, left, length }) => (
+    <Line style={{ height: length, left, top, width: '2px'}} />
+);
+
+const HorizontalLine: React.FC<LineProps> = ({ top, left, length }) => (
+    <Line style={{ height: '2px', left, top, width: length}} />
+);
+
 function hasChildren(nodes: Nodes, parentId: string): boolean {
     return Object.values(nodes).some(node => node.parent === parentId);
 }
@@ -166,6 +185,9 @@ export function TreeItemComponent({
             setChildren(newChildren);
         }
     }, [handleNodeClick, id, maxDate, minDate, node.date, nodes, parentpadding, windowWidth, position]);
+
+    const verticalLineProps   = { left: '20px', length: '100px', top: '10px'};
+    const horizontalLineProps = { left: '30px', length: '150px', top: '50px' };
     const hasChildNodes = hasChildren(nodes, id);
     const pad = (((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) < 20 ? 20 :(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding);
     return (
@@ -195,8 +217,12 @@ export function TreeItemComponent({
                 paddingLeft: `${pad}px`,
             }}*/
         >
-            <div>test</div>
-            <CustomNode node={node} />
+            <Box alignItems="center" display="flex" flexDirection="row">
+                <VerticalLine {...verticalLineProps} />
+                <HorizontalLine {...horizontalLineProps} />
+                <CustomNode node={node} />
+            </Box>
+            
             {children}
         </TreeItem>
     );
