@@ -33,19 +33,20 @@ const createHistoryTable = `
         UNIQUE(userId, nodeid)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`;
 
-connection.query(createUserTable).then(([rows]) => {
+connection.query(createUserTable).then(() => {
     //console.log('Available Tables:', rows);
 }).catch(err => {
     console.error('Database connection error:', err);
 });
 
-connection.query(createHistoryTable).then(([rows]) => {
+connection.query(createHistoryTable).then(() => {
     //console.log('Available Tables:', rows);
 }).catch(err => {
     console.error('Database connection error:', err);
 });
 
-connection.query('SHOW TABLES').then(([rows]) => {
+connection.query('SHOW TABLES').then(() => {
+    //([rows])=>
     //console.log('Available Tables:', rows);
 }).catch(err => {
     console.error('Database connection error:', err);

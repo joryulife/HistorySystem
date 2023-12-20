@@ -44,7 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const userId = session.user.id;
 
     try {
-        const sql = 'SELECT * FROM history WHERE userId = ?';
+        const sql = 'SELECT * FROM history WHERE userId = ? ORDER BY firstVisit ASC';
         const [results] = await db.query<HistoryRow[]>(sql, [userId]);
 
         const historyData = results.reduce((acc, cur) => {
