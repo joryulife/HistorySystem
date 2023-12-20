@@ -152,8 +152,8 @@ export function TreeItemComponent({
     windowWidth: number;
 }) {
     //const pad = (((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) < 20 ? 20 :(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding);
-    const [verticalLine, setVerticalLine] = useState<LineState>({ length: 500,x: 0, y: 0 });
-    const [horizontalLine, setHorizontalLine] = useState<LineState>({ length: 100 ,x: 0, y: 0});
+    const [verticalLine, setVerticalLine] = useState<LineState>({ length: 50,x: 0, y: 0 });
+    const [horizontalLine, setHorizontalLine] = useState<LineState>({ length: 20 ,x: 0, y: 0});
     
     const [children, setChildren] = useState<JSX.Element[]>([]);
     
