@@ -5,7 +5,8 @@ import { TreeItem } from '@mui/lab';
 import { Box, Button } from '@mui/material';
 
 import type { NodeData, Nodes, TreeItemProps } from '../pages/api/types';
-
+const large = 150;
+const small = 75;
 export const TreeItemDynamic = styled(TreeItem)(({ W, parent }: TreeItemProps) => ({
     '& .Mui-expanded': {
         position: 'relative',
@@ -37,14 +38,14 @@ export const TreeItemDynamic = styled(TreeItem)(({ W, parent }: TreeItemProps) =
 
 export function CustomNode({ node }: { node: NodeData }) {
     const aspectRatio = node.width && node.height ? node.width / node.height : 1;
-    const [imgSize, setImgSize] = useState({ height: 50, width: 50 * aspectRatio });
+    const [imgSize, setImgSize] = useState({ height: small, width: small * aspectRatio });
     const [isTextExpanded, setIsTextExpanded] = useState(false);
 
     const handleClick = () => {
-        if (imgSize.height === 50) {
-            setImgSize({ height: 150, width: 150 * aspectRatio });
+        if (imgSize.height === small) {
+            setImgSize({ height: large, width: large * aspectRatio });
         } else {
-            setImgSize({ height: 50, width: 50 * aspectRatio });
+            setImgSize({ height: small, width: small * aspectRatio });
         }
     };
 
@@ -84,7 +85,6 @@ export function CustomNode({ node }: { node: NodeData }) {
                     <span style={{ textAlign: 'left' }}>
                         {new Date(node.date).toLocaleString()} {truncateText(node.title)}
                     </span>
-                    <span>${node.img}</span>
                     <span style={{ textAlign: 'left' }}>{truncateText(node.url)}</span>
                 </Button>
             </Box>
