@@ -75,7 +75,6 @@ export function CustomNode({ node }: { node: NodeData }) {
                     }}
                 />
             )}
-            <div> node.id </div>
             <Box display="flex" flexDirection="column">
                 <Button
                     onClick={handleTextToggle}
@@ -85,6 +84,7 @@ export function CustomNode({ node }: { node: NodeData }) {
                     <span style={{ textAlign: 'left' }}>
                         {new Date(node.date).toLocaleString()} {truncateText(node.title)}
                     </span>
+                    <span>${node.img}</span>
                     <span style={{ textAlign: 'left' }}>{truncateText(node.url)}</span>
                 </Button>
             </Box>
