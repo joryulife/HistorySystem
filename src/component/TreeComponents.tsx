@@ -178,7 +178,7 @@ export function TreeItemComponent({
             parent={node.parent}
             ref={ref}
             style={{
-                paddingLeft: `${((node.date - minDate) / (maxDate - minDate) / 1.5) * windowWidth - parentpadding}px`,
+                paddingLeft: `${((node.date - minDate) / (maxDate - minDate) / 1.5) * windowWidth - parentpadding + 20}px`,
             }}
         >
             <CustomNode node={node} />
