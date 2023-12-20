@@ -169,9 +169,9 @@ export function TreeItemComponent({
     const pad = (((node.date - minDate) / (maxDate - minDate) / 1.5) * windowWidth - parentpadding) < 20 ? 20 :(((node.date - minDate) / (maxDate - minDate) / 1.5) * windowWidth - parentpadding);
     return (
         <TreeItemDynamic
-            W={(((node.date - minDate) / (maxDate - minDate) / 1.5) * windowWidth - parentpadding) > 20 
+            W={(((node.date - minDate) / (maxDate - minDate) / 1.5) * windowWidth - parentpadding) > 40 
             ? (((node.date - minDate) / (maxDate - minDate) / 1.5) * windowWidth - parentpadding) 
-            : 20} // nullの場合は0を設定
+            : 40} // nullの場合は0を設定
             hc = {hasChildNodes}
             key={id}
             nodeId={id}
