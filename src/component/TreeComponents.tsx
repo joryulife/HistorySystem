@@ -7,6 +7,7 @@ import { Box, Button } from '@mui/material';
 import type { NodeData, Nodes, TreeItemProps } from '../pages/api/types';
 const large = 150;
 const small = 75;
+
 export const TreeItemDynamic = styled(TreeItem)(({ W, parent, hc }: TreeItemProps) => ({
     '& .Mui-expanded': {
         position: 'relative',
@@ -168,7 +169,7 @@ export function TreeItemComponent({
     const hasChildNodes = hasChildren(nodes, id);
     const pad = (((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) < 20 ? 20 :(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding);
     return (
-        <TreeItemDynamic
+        /*<TreeItemDynamic
             W={(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) > 40 
             ? (((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) 
             : 40} // nullの場合は0を設定
@@ -184,7 +185,19 @@ export function TreeItemComponent({
         >
             <CustomNode node={node} />
             {children}
-        </TreeItemDynamic>
+        </TreeItemDynamic>*/
+        <TreeItem
+            nodeId={id}
+            onClick={() => handleNodeClick(id)}
+            ref={ref}
+            /*sx={{
+                // ここに必要なスタイルを追加
+                paddingLeft: `${pad}px`,
+            }}*/
+        >
+            <CustomNode node={node} />
+            {children}
+        </TreeItem>
     );
 }
 
