@@ -195,6 +195,7 @@ export function TreeItemComponent({
                 paddingLeft: `${pad}px`,
             }}*/
         >
+            <div>test</div>
             <CustomNode node={node} />
             {children}
         </TreeItem>
