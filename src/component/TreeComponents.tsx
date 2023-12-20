@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 
 import styled from '@emotion/styled';
 import { TreeItem } from '@mui/lab';
@@ -36,6 +36,41 @@ export const TreeItemDynamic = styled(TreeItem)(({ W, parent, hc }: TreeItemProp
         width: '2px',
     },
 }));
+
+interface LineProps {
+    length: number;
+    orientation: 'horizontal' | 'vertical';
+    x: number;
+    y: number;
+}
+
+const Line: React.FC<LineProps> = ({ x, y, length, orientation }) => {
+    const lineStyle: React.CSSProperties = {
+        backgroundColor: 'black',
+        position: 'absolute',
+    };
+
+    if (orientation === 'horizontal') {
+        lineStyle.left = x;
+        lineStyle.top = y;
+        lineStyle.width = length;
+        lineStyle.height = 2;
+    } else if (orientation === 'vertical') {
+        lineStyle.left = x;
+        lineStyle.top = y;
+        lineStyle.height = length;
+        lineStyle.width = 2;
+    }
+
+    return <div style={lineStyle} />;
+};
+
+// DynamicLines コンポーネントの状態の型定義
+interface LineState {
+    length: number;
+    x: number;
+    y: number;
+}
 
 function hasChildren(nodes: Nodes, parentId: string): boolean {
     return Object.values(nodes).some(node => node.parent === parentId);
@@ -116,59 +151,23 @@ export function TreeItemComponent({
     parentpadding: number;
     windowWidth: number;
 }) {
-    const ref = useRef<HTMLDivElement | null>(null);
-    const [position, setPosition] = useState<{
-        bottom: number | null;
-        height: number | null;
-        left: number | null;
-        right: number | null;
-        top: number | null;
-        width: number | null;
-    }>({
-        bottom: null,
-        height: null,
-        left: null,
-        right: null,
-        top: null,
-        width: null,
-    });
+    const [horizontalLine, setHorizontalLine] = useState<LineState>({ length: 100 ,x: 50, y: 50});
+    const [verticalLine, setVerticalLine] = useState<LineState>({ length: 150,x: 75, y: 75 });
     const [children, setChildren] = useState<JSX.Element[]>([]);
-
-    useLayoutEffect(() => {
-        if (ref.current) {
-            const rect = ref.current.getBoundingClientRect();
-            setPosition({
-                //left: rect.left + window.scrollX,
-                //top: rect.top + window.scrollY,
-                bottom: rect.bottom,
-                height: rect.height,
-                left: rect.left,
-                right: rect.right,
-                top: rect.top,
-                width: rect.width,
-            });
-        }
-    }, [ref, id]);
-
+    
     useEffect(() => {
-        if (position.top !== null && position.left !== null) {
-            const newChildren = buildTree(
-                nodes,
-                id,
-                handleNodeClick,
-                maxDate,
-                minDate,
-                windowWidth,
-                position.top, // ここでparentHとして渡すべき
-                position.left, // ここでparentWとして渡すべき
-                ((node.date - minDate) / (maxDate - minDate)) * windowWidth - parentpadding,
-            );
-            setChildren(newChildren);
-        }
-    }, [handleNodeClick, id, maxDate, minDate, node.date, nodes, parentpadding, windowWidth, position]);
+        const newChildren = buildTree(
+            nodes,
+            id,
+            handleNodeClick,
+            maxDate,
+            minDate,
+            windowWidth,
+            ((node.date - minDate) / (maxDate - minDate)) * windowWidth - parentpadding,
+        );
+        setChildren(newChildren);
+    }, [handleNodeClick, id, maxDate, minDate, node.date, nodes, parentpadding, windowWidth]);
 
-    const verticalLineProps   = { left: '20px', length: '100px', top: '10px'};
-    const horizontalLineProps = { left: '30px', length: '150px', top: '50px' };
     const hasChildNodes = hasChildren(nodes, id);
     const pad = (((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) < 20 ? 20 :(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding);
     return (
@@ -192,14 +191,24 @@ export function TreeItemComponent({
         <TreeItem
             nodeId={id}
             onClick={() => handleNodeClick(id)}
-            ref={ref}
             /*sx={{
                 // ここに必要なスタイルを追加
                 paddingLeft: `${pad}px`,
             }}*/
         >
             <Box alignItems="center" display="flex" flexDirection="row">
-                <div>test</div>
+                <Line
+                    length={horizontalLine.length}
+                    orientation="horizontal"
+                    x={horizontalLine.x}
+                    y={horizontalLine.y}
+                />
+                <Line
+                    length={verticalLine.length}
+                    orientation="vertical"
+                    x={verticalLine.x}
+                    y={verticalLine.y}
+                />
                 <CustomNode node={node} />
             </Box>
             
@@ -215,8 +224,6 @@ export function buildTree(
     maxDate: number,
     minDate: number,
     windowWidth: number,
-    parentH: number, // position.topを受け取るべき
-    parentW: number, // position.leftを受け取るべき
     parentpadding: number,
 ): JSX.Element[] {
     return Object.entries(nodes)
