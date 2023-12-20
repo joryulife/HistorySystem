@@ -75,6 +75,7 @@ export function CustomNode({ node }: { node: NodeData }) {
                     }}
                 />
             )}
+            <div> node.id </div>
             <Box display="flex" flexDirection="column">
                 <Button
                     onClick={handleTextToggle}
