@@ -164,7 +164,9 @@ export function TreeItemComponent({
 
     return (
         <TreeItemDynamic
-            W={((node.date - minDate) / (maxDate - minDate) / 1.5) * windowWidth - parentpadding} // nullの場合は0を設定
+            W={(((node.date - minDate) / (maxDate - minDate) / 1.5) * windowWidth - parentpadding) > 0 
+            ? (((node.date - minDate) / (maxDate - minDate) / 1.5) * windowWidth - parentpadding) 
+            : 0} // nullの場合は0を設定
             key={id}
             nodeId={id}
             onClick={() => handleNodeClick(id)}
