@@ -38,15 +38,14 @@ export async function initPuppeteer() {
 
 export async function createImg(userId: number) {
     const sql = 'SELECT * FROM history WHERE userId = ? AND imgcreate = false';
-
     try {
         const [rows] = await db.query<RowDataPacket[] | RowDataPacket[][]>(sql, [userId]);
-        
         for (const row of rows as HistoryRow[]) {
             try {
                 await ss(row.height, row.nodeid, row.userId, row.url, row.width, row.x, row.y, row.id);
             } catch (error) {
                 console.log(error);
+                console.log("次の処理");
             }
         }
     } catch (err) {
