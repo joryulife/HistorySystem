@@ -45,7 +45,6 @@ export async function createImg(userId: number) {
                 await ss(row.height, row.nodeid, row.userId, row.url, row.width, row.x, row.y, row.id);
             } catch (error) {
                 console.log(error);
-                console.log("次の処理");
             }
         }
     } catch (err) {
@@ -60,8 +59,6 @@ async function ss(height: number, id: string, userId: number, url: string, width
     if (!browser) {
         await initPuppeteer();
     }
-
-    
     try {
         console.log("IN puppeteer.ts :",url);
         if (url.startsWith('chrome://')) {
@@ -88,6 +85,9 @@ async function ss(height: number, id: string, userId: number, url: string, width
             console.log(`Screenshot saved: ${imageName}`); 
         }
     } catch (error) {
-        throw error;
+        console.error(`Error in ss function for URL ${url}: ${error}`);
+        // エラーを再スローせず、処理を続行
+        const updateSql = 'UPDATE history SET imgcreate = true WHERE id = ?';
+        await db.query(updateSql, [ID]);
     }
 }
