@@ -49,7 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
         const historyData = results.reduce((acc, cur) => {
             acc[cur.nodeid] = {
-                date: new Date(cur.firstVisit).getTime(),
+                date: convertToJST(new Date(cur.firstVisit)).getTime(),
                 height: cur.height,
                 img: `/images/${cur.img}`,
                 parent: cur.parent,
@@ -65,4 +65,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         console.error(error);
         res.status(500).json({ message: 'Server error' });
     }
+}
+
+function convertToJST(date:Date):Date {
+    return new Date(date.getTime() + 9 * 60 * 60 * 1000);
 }

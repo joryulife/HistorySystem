@@ -41,12 +41,12 @@ export async function createImg(userId: number) {
 
     try {
         const [rows] = await db.query<RowDataPacket[] | RowDataPacket[][]>(sql, [userId]);
-
+        
         for (const row of rows as HistoryRow[]) {
             try {
                 await ss(row.height, row.nodeid, row.userId, row.url, row.width, row.x, row.y, row.id);
             } catch (error) {
-                console.error(error);
+                console.log(error);
             }
         }
     } catch (err) {
@@ -86,7 +86,7 @@ async function ss(height: number, id: string, userId: number, url: string, width
             await page.close();
             const updateSql = 'UPDATE history SET imgcreate = true WHERE id = ?';
             await db.query(updateSql, [ID]);
-            console.log(`Screenshot saved: ${imageName}`);
+            console.log(`Screenshot saved: ${imageName}`); 
         }
     } catch (error) {
         throw error;
