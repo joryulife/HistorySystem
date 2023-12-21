@@ -163,9 +163,9 @@ export function TreeItemComponent({
         setChildren(newChildren);
     }, [handleNodeClick, id, maxDate, minDate, node.date, nodes, parentpadding, windowWidth]);
 
-    //const hasChildNodes = hasChildren(nodes, id);
+    const hasChildNodes = hasChildren(nodes, id);
     return (
-        /*<TreeItemDynamic
+        <TreeItemDynamic
             W={(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) > 40 
             ? (((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) 
             : 40} // nullの場合は0を設定
@@ -174,14 +174,14 @@ export function TreeItemComponent({
             nodeId={id}
             onClick={() => handleNodeClick(id)}
             parent={node.parent}
-            ref={ref}
             style={{
-                paddingLeft: `${pad}px`,
+                paddingLeft: `${(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding)}px`,
             }}
         >
             <CustomNode node={node} />
             {children}
-        </TreeItemDynamic>*/
+        </TreeItemDynamic>
+        /*
         <TreeItem
             nodeId={id}
             onClick={() => handleNodeClick(id)}
@@ -212,7 +212,7 @@ export function TreeItemComponent({
                 <CustomNode node={node} />
             </Box>
             {children}
-        </TreeItem>
+        </TreeItem>*/
     );
 }
 
