@@ -220,6 +220,8 @@ export function TreeItemComponent({
             nodeId={id}
             onClick={() => handleNodeClick(id)}
         >
+            <div>{id}</div>
+            <div>{nodes[id].parent}</div>
             <Box alignItems="center" display="flex" flexDirection="row">
                 <CustomNode node={node} />
             </Box>
