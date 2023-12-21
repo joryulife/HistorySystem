@@ -65,6 +65,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         `;
 
         await db.query(sql, [values]);
+        console.log("done");
 
         //await createImg(userId);
 
