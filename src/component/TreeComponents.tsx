@@ -1,15 +1,15 @@
 import React, {useState, useEffect } from 'react';
 
-import styled from '@emotion/styled';
+//import styled from '@emotion/styled';
 import { TreeItem } from '@mui/lab';
 import { Box, Button } from '@mui/material';
 
-import type { NodeData, Nodes, TreeItemProps } from '../pages/api/types';
-const large = 150;
-const small = 75;
+import type { NodeData, Nodes,  } from '../pages/api/types'; //TreeItemProps
+const large = 200;
+const small = 150;
 
 
-export const TreeItemDynamic = styled(TreeItem)(({ W, parent, hc }: TreeItemProps) => ({
+/*export const TreeItemDynamic = styled(TreeItem)(({ W, parent, hc }: TreeItemProps) => ({
     '& .Mui-expanded': {
         position: 'relative',
     },
@@ -36,7 +36,7 @@ export const TreeItemDynamic = styled(TreeItem)(({ W, parent, hc }: TreeItemProp
         top: '0',
         width: '2px',
     },
-}));
+}));*/
 
 /*
 interface LineProps {
@@ -199,7 +199,7 @@ export function TreeItemComponent({
 
     const hasChildNodes = hasChildren(nodes, id);
     return (
-        <TreeItemDynamic
+        /*<TreeItemDynamic
             W={(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) > 40 
             ? (((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) 
             : 40} // nullの場合は0を設定
@@ -214,21 +214,17 @@ export function TreeItemComponent({
         >
             <CustomNode node={node} />
             {children}
-        </TreeItemDynamic>
+        </TreeItemDynamic>*/
         
-        /*
         <TreeItem
             nodeId={id}
             onClick={() => handleNodeClick(id)}
-            style={{
-                paddingLeft: `${(pad - parentpadding)}px`,
-            }}
         >
             <Box alignItems="center" display="flex" flexDirection="row">
                 <CustomNode node={node} />
             </Box>
             {children}
-        </TreeItem>*/
+        </TreeItem>
     );
 }
 
