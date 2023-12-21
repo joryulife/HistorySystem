@@ -69,9 +69,9 @@ const Line: React.FC<LineProps> = ({ length, orientation, parent, x, y}) => {
 };
 */
 
-function hasChildren(nodes: Nodes, parentId: string): boolean {
+/*function hasChildren(nodes: Nodes, parentId: string): boolean {
     return Object.values(nodes).some(node => node.parent === parentId);
-}
+}*/
 
 
 export function CustomNode({ node }: { node: NodeData }) {
