@@ -197,7 +197,7 @@ export function TreeItemComponent({
         setChildren(newChildren);
     }, [handleNodeClick, id, maxDate, minDate, node.date, nodes, parentpadding, windowWidth]);
 
-    const hasChildNodes = hasChildren(nodes, id);
+    //const hasChildNodes = hasChildren(nodes, id);
     return (
         /*<TreeItemDynamic
             W={(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) > 40 
