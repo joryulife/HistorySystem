@@ -40,13 +40,14 @@ export const TreeItemDynamic = styled(TreeItem)(({ W, parent, hc }: TreeItemProp
 interface LineProps {
     length: number;
     orientation: 'horizontal' | 'vertical';
+    parent:string;
     x: number;
     y: number;
 }
 
-const Line: React.FC<LineProps> = ({ x, y, length, orientation }) => {
+const Line: React.FC<LineProps> = ({ length, orientation, parent, x, y}) => {
     const lineStyle: React.CSSProperties = {
-        backgroundColor: 'black',
+        backgroundColor: `${parent == '0' ? '' : 'black'}`,
         position: 'relative',
     };
 
@@ -64,14 +65,6 @@ const Line: React.FC<LineProps> = ({ x, y, length, orientation }) => {
 
     return <div style={lineStyle} />;
 };
-
-// DynamicLines コンポーネントの状態の型定義
-interface LineState {
-    length: number;
-    parent:boolean;
-    x: number;
-    y: number;
-}
 
 function hasChildren(nodes: Nodes, parentId: string): boolean {
     return Object.values(nodes).some(node => node.parent === parentId);
@@ -198,12 +191,14 @@ export function TreeItemComponent({
                 <Line
                     length={50}
                     orientation="vertical"
+                    parent={node.parent}
                     x={0}
                     y={0}
                 />
                 <Line
                     length={pad}
                     orientation="horizontal"
+                    parent={node.parent}
                     x={0}
                     y={0}
                 />
