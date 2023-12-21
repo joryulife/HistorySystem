@@ -97,6 +97,9 @@ export function CustomNode({ node }: { node: NodeData }) {
             return text.substr(0, 47) + '...';
         }
     };
+    const googleSearchLink = (query: string) => {
+        return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+    };
 
     return (
         <Box alignItems="center" display="flex" flexDirection="row">
@@ -121,7 +124,7 @@ export function CustomNode({ node }: { node: NodeData }) {
                 >
                     {/* URLが存在する場合はリンクとして表示 */}
                     {node.url ? (
-                        <a href={node.url} style={{ textDecoration: 'none' }} target="_blank">
+                        <a href={googleSearchLink(node.url)} style={{ textDecoration: 'none' }} target="_blank">
                             <span style={{ textAlign: 'left' }}>
                                 {new Date(node.date).toLocaleString()} {truncateText(node.title)}
                             </span>
