@@ -68,6 +68,7 @@ const Line: React.FC<LineProps> = ({ x, y, length, orientation }) => {
 // DynamicLines コンポーネントの状態の型定義
 interface LineState {
     length: number;
+    parent:boolean;
     x: number;
     y: number;
 }
@@ -151,9 +152,9 @@ export function TreeItemComponent({
     parentpadding: number;
     windowWidth: number;
 }) {
-    const pad = (((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) < 20 ? 20 :(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding);
-    const [verticalLine, setVerticalLine] = useState<LineState>({ length: 50,x: 0, y: 0 });
-    const [horizontalLine, setHorizontalLine] = useState<LineState>({ length: 20 ,x: 0, y: 0});
+    const pad = (((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding);
+    //const [verticalLine, setVerticalLine] = useState<LineState>({ length: 50,x: 0, y: 0 });
+    //const [horizontalLine, setHorizontalLine] = useState<LineState>({ length: 20 ,x: 0, y: 0});
     
     const [children, setChildren] = useState<JSX.Element[]>([]);
     
@@ -165,7 +166,7 @@ export function TreeItemComponent({
             maxDate,
             minDate,
             windowWidth,
-            ((node.date - minDate) / (maxDate - minDate)) * windowWidth - parentpadding,
+            ((node.date - minDate) / (maxDate - minDate)/ 3) * windowWidth - parentpadding,
         );
         setChildren(newChildren);
     }, [handleNodeClick, id, maxDate, minDate, node.date, nodes, parentpadding, windowWidth]);
@@ -199,16 +200,16 @@ export function TreeItemComponent({
         >
             <Box alignItems="center" display="flex" flexDirection="row">
                 <Line
-                    length={verticalLine.length}
+                    length={50}
                     orientation="vertical"
                     x={-pad}
-                    y={verticalLine.y}
+                    y={0}
                 />
                 <Line
                     length={pad}
                     orientation="horizontal"
                     x={-pad}
-                    y={horizontalLine.y}
+                    y={0}
                 />
                 <CustomNode node={node} />
             </Box>
