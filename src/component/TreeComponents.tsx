@@ -97,8 +97,22 @@ export function CustomNode({ node }: { node: NodeData }) {
             return text.substr(0, 47) + '...';
         }
     };
-    const googleSearchLink = (query: string) => {
-        return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+    function extractQueryFromGoogleUrl(url:string) {
+        // URLオブジェクトを作成して、検索クエリを取得
+        const urlObj = new URL(url);
+        const queryParams = new URLSearchParams(urlObj.search);
+    
+        // 'q' パラメータの値を取得
+        return queryParams.get('q') || "";
+    }
+
+    const googleSearchLink = (url: string) => {
+        if(url.startsWith("https://www.google.com/search?q=")){
+            return `https://www.google.com/search?q=${encodeURIComponent(extractQueryFromGoogleUrl(url))}`;
+        }else{
+            return url
+        }
+        
     };
 
     return (
