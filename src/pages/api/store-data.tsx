@@ -2,7 +2,7 @@
 import Cors from 'cors';
 
 import db from '../../lib/ds';
-import { createImg } from '../../lib/puppeteer';
+//import { createImg } from '../../lib/puppeteer';
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -66,7 +66,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         await db.query(sql, [values]);
 
-        await createImg(userId);
+        //await createImg(userId);
 
         res.status(200).json({ message: 'Nodes added successfully' });
     } catch (error) {
