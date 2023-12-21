@@ -37,6 +37,7 @@ export const TreeItemDynamic = styled(TreeItem)(({ W, parent, hc }: TreeItemProp
     },
 }));
 
+/*
 interface LineProps {
     length: number;
     orientation: 'horizontal' | 'vertical';
@@ -65,10 +66,12 @@ const Line: React.FC<LineProps> = ({ length, orientation, parent, x, y}) => {
 
     return <div style={lineStyle} />;
 };
+*/
 
 function hasChildren(nodes: Nodes, parentId: string): boolean {
     return Object.values(nodes).some(node => node.parent === parentId);
 }
+
 
 export function CustomNode({ node }: { node: NodeData }) {
     const aspectRatio = node.width && node.height ? node.width / node.height : 1;
@@ -116,10 +119,23 @@ export function CustomNode({ node }: { node: NodeData }) {
                     sx={{ alignItems: 'flex-start', flexDirection: 'column', textTransform: 'none' }}
                     variant="text"
                 >
-                    <span style={{ textAlign: 'left' }}>
-                        {new Date(node.date).toLocaleString()} {truncateText(node.title)}
-                    </span>
-                    <span style={{ textAlign: 'left' }}>{truncateText(node.url)}</span>
+                    {/* URLが存在する場合はリンクとして表示 */}
+                    {node.url ? (
+                        <a href={node.url} style={{ textDecoration: 'none' }} target="_blank">
+                            <span style={{ textAlign: 'left' }}>
+                                {new Date(node.date).toLocaleString()} {truncateText(node.title)}
+                            </span>
+                            <span style={{ textAlign: 'left' }}>{truncateText(node.url)}</span>
+                        </a>
+                    ) : (
+                        /* URLが存在しない場合は通常のテキストとして表示 */
+                        <>
+                            <span style={{ textAlign: 'left' }}>
+                                {new Date(node.date).toLocaleString()} {truncateText(node.title)}
+                            </span>
+                            <span style={{ textAlign: 'left' }}>{truncateText(node.title)}</span>
+                        </>
+                    )}
                 </Button>
             </Box>
         </Box>
