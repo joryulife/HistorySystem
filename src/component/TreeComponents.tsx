@@ -201,13 +201,13 @@ export function TreeItemComponent({
                 <Line
                     length={verticalLine.length}
                     orientation="vertical"
-                    x={verticalLine.x}
+                    x={-pad}
                     y={verticalLine.y}
                 />
                 <Line
-                    length={horizontalLine.length}
+                    length={pad}
                     orientation="horizontal"
-                    x={horizontalLine.x}
+                    x={-pad}
                     y={horizontalLine.y}
                 />
                 <CustomNode node={node} />
