@@ -145,7 +145,6 @@ export function TreeItemComponent({
     parentpadding: number;
     windowWidth: number;
 }) {
-    const pad = (((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding);
     //const [verticalLine, setVerticalLine] = useState<LineState>({ length: 50,x: 0, y: 0 });
     //const [horizontalLine, setHorizontalLine] = useState<LineState>({ length: 20 ,x: 0, y: 0});
     
@@ -196,7 +195,7 @@ export function TreeItemComponent({
                     y={0}
                 />
                 <Line
-                    length={pad}
+                    length={(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding)}
                     orientation="horizontal"
                     parent={node.parent}
                     x={0}
