@@ -193,22 +193,18 @@ export function TreeItemComponent({
         <TreeItem
             nodeId={id}
             onClick={() => handleNodeClick(id)}
-            sx={{
-                // ここに必要なスタイルを追加
-                paddingLeft: `${pad}px`,
-            }}
         >
             <Box alignItems="center" display="flex" flexDirection="row">
                 <Line
                     length={50}
                     orientation="vertical"
-                    x={-pad}
+                    x={0}
                     y={0}
                 />
                 <Line
                     length={pad}
                     orientation="horizontal"
-                    x={-pad}
+                    x={0}
                     y={0}
                 />
                 <CustomNode node={node} />
