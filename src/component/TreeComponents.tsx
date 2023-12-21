@@ -8,6 +8,7 @@ import type { NodeData, Nodes, TreeItemProps } from '../pages/api/types';
 const large = 150;
 const small = 75;
 
+/*
 export const TreeItemDynamic = styled(TreeItem)(({ W, parent, hc }: TreeItemProps) => ({
     '& .Mui-expanded': {
         position: 'relative',
@@ -35,7 +36,7 @@ export const TreeItemDynamic = styled(TreeItem)(({ W, parent, hc }: TreeItemProp
         top: '0',
         width: '2px',
     },
-}));
+}));*/
 
 /*
 interface LineProps {
@@ -180,7 +181,7 @@ export function TreeItemComponent({
 }) {
     //const [verticalLine, setVerticalLine] = useState<LineState>({ length: 50,x: 0, y: 0 });
     //const [horizontalLine, setHorizontalLine] = useState<LineState>({ length: 20 ,x: 0, y: 0});
-    
+    const pad = ((node.date - minDate) / (maxDate - minDate)/ 3) * windowWidth
     const [children, setChildren] = useState<JSX.Element[]>([]);
     
     useEffect(() => {
@@ -198,7 +199,7 @@ export function TreeItemComponent({
 
     const hasChildNodes = hasChildren(nodes, id);
     return (
-        <TreeItemDynamic
+        /*<TreeItemDynamic
             W={(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) > 40 
             ? (((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) 
             : 40} // nullの場合は0を設定
@@ -213,39 +214,20 @@ export function TreeItemComponent({
         >
             <CustomNode node={node} />
             {children}
-        </TreeItemDynamic>
-        /*
+        </TreeItemDynamic>*/
+        
         <TreeItem
             nodeId={id}
             onClick={() => handleNodeClick(id)}
+            style={{
+                paddingLeft: `${(pad - parentpadding)}px`,
+            }}
         >
             <Box alignItems="center" display="flex" flexDirection="row">
-                <Line
-                    length={(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) - 10}
-                    orientation="horizontal"
-                    parent={'0'}
-                    x={0}
-                    y={0}
-                />
-                <Line
-                    length={50}
-                    orientation="vertical"
-                    parent={node.parent}
-                    x={0}
-                    y={0}
-                />
-                <Line
-                    length={10}
-                    orientation="horizontal"
-                    parent={'0'}
-                    x={0}
-                    y={0}
-                />
-                
                 <CustomNode node={node} />
             </Box>
             {children}
-        </TreeItem>*/
+        </TreeItem>
     );
 }
 
