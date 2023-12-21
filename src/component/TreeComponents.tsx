@@ -158,7 +158,7 @@ export function TreeItemComponent({
             maxDate,
             minDate,
             windowWidth,
-            ((node.date - minDate) / (maxDate - minDate)/ 3) * windowWidth - parentpadding,
+            ((node.date - minDate) / (maxDate - minDate)/ 3) * windowWidth,
         );
         setChildren(newChildren);
     }, [handleNodeClick, id, maxDate, minDate, node.date, nodes, parentpadding, windowWidth]);
@@ -195,7 +195,7 @@ export function TreeItemComponent({
                     y={0}
                 />
                 <Line
-                    length={(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding)}
+                    length={(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth)}
                     orientation="horizontal"
                     parent={node.parent}
                     x={0}
