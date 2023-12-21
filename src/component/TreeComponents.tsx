@@ -158,7 +158,7 @@ export function TreeItemComponent({
             maxDate,
             minDate,
             windowWidth,
-            ((node.date - minDate) / (maxDate - minDate)/ 3) * windowWidth,
+            ((node.date - minDate) / (maxDate - minDate)/ 3) * windowWidth - parentpadding,
         );
         setChildren(newChildren);
     }, [handleNodeClick, id, maxDate, minDate, node.date, nodes, parentpadding, windowWidth]);
@@ -188,6 +188,13 @@ export function TreeItemComponent({
         >
             <Box alignItems="center" display="flex" flexDirection="row">
                 <Line
+                    length={(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) - 10}
+                    orientation="horizontal"
+                    parent={'0'}
+                    x={0}
+                    y={0}
+                />
+                <Line
                     length={50}
                     orientation="vertical"
                     parent={node.parent}
@@ -195,12 +202,13 @@ export function TreeItemComponent({
                     y={0}
                 />
                 <Line
-                    length={(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth)}
+                    length={10}
                     orientation="horizontal"
-                    parent={node.parent}
+                    parent={'0'}
                     x={0}
                     y={0}
                 />
+                
                 <CustomNode node={node} />
             </Box>
             {children}
