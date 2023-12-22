@@ -1,15 +1,15 @@
 import React, {useState, useEffect } from 'react';
 
-//import styled from '@emotion/styled';
+import styled from '@emotion/styled';
 import { TreeItem } from '@mui/lab';
 import { Box, Button } from '@mui/material';
 
-import type { NodeData, Nodes,  } from '../pages/api/types'; //TreeItemProps
+import type { NodeData, Nodes, TreeItemProps } from '../pages/api/types'; //TreeItemProps
 const large = 200;
 const small = 150;
 
 
-/*export const TreeItemDynamic = styled(TreeItem)(({ W, parent, hc }: TreeItemProps) => ({
+export const TreeItemDynamic = styled(TreeItem)(({ W, parent, hc }: TreeItemProps) => ({
     '& .Mui-expanded': {
         position: 'relative',
     },
@@ -36,7 +36,7 @@ const small = 150;
         top: '0',
         width: '2px',
     },
-}));*/
+}));
 
 /*
 interface LineProps {
@@ -69,9 +69,9 @@ const Line: React.FC<LineProps> = ({ length, orientation, parent, x, y}) => {
 };
 */
 
-/*function hasChildren(nodes: Nodes, parentId: string): boolean {
+function hasChildren(nodes: Nodes, parentId: string): boolean {
     return Object.values(nodes).some(node => node.parent === parentId);
-}*/
+}
 
 
 export function CustomNode({ node }: { node: NodeData }) {
@@ -197,9 +197,9 @@ export function TreeItemComponent({
         setChildren(newChildren);
     }, [handleNodeClick, id, maxDate, minDate, node.date, nodes, parentpadding, windowWidth]);
 
-    //const hasChildNodes = hasChildren(nodes, id);
+    const hasChildNodes = hasChildren(nodes, id);
     return (
-        /*<TreeItemDynamic
+        <TreeItemDynamic
             W={(((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) > 40 
             ? (((node.date - minDate) / (maxDate - minDate) / 3) * windowWidth - parentpadding) 
             : 40} // nullの場合は0を設定
@@ -214,9 +214,9 @@ export function TreeItemComponent({
         >
             <CustomNode node={node} />
             {children}
-        </TreeItemDynamic>*/
+        </TreeItemDynamic>
         
-        <TreeItem
+        /*<TreeItem
             nodeId={id}
             onClick={() => handleNodeClick(id)}
         >
@@ -226,7 +226,7 @@ export function TreeItemComponent({
                 <CustomNode node={node} />
             </Box>
             {children}
-        </TreeItem>
+        </TreeItem>*/
     );
 }
 
