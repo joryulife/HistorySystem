@@ -122,7 +122,7 @@ export function CustomNode({ node }: { node: NodeData }) {
                 <img
                     alt={node.title}
                     onClick={handleClick}
-                    src={node.img!='chrome://newtab/'?node.img:'/images/newtab.png'}
+                    src={node.url!='chrome://newtab/'?node.img:'/images/newtab.png'}
                     style={{
                         height: `${imgSize.height}px`,
                         marginRight: '10px',
